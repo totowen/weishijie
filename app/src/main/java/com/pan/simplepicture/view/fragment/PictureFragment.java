@@ -60,17 +60,17 @@ public class PictureFragment extends BaseFragment implements IPictureView, Swipe
             pageNo += list.size();
         }
     }
-
+    //刷新完成
     @Override
     public void onRefreshComplete() {
         if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing())
             mSwipeRefreshLayout.setRefreshing(false);
     }
-
+    //加载完成
     public void onLoadMoreComplete() {
         isLoadingMore = false;
     }
-
+    //创建交互层（完成View层与Model层的交互）
     @Override
     public PicturePresenter getPresenter() {
         return new PicturePresenter();
@@ -123,6 +123,7 @@ public class PictureFragment extends BaseFragment implements IPictureView, Swipe
         this.mType = mType;
     }
 
+    //将视图与数据(网络)绑定
     @Override
     public void bindView(Bundle savedInstanceState) {
         if (mPresenter == null || !(mPresenter instanceof PicturePresenter)) {
@@ -138,6 +139,7 @@ public class PictureFragment extends BaseFragment implements IPictureView, Swipe
             }
         }).build();
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        //实现瀑布流效果
         mLayoutManager = new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);

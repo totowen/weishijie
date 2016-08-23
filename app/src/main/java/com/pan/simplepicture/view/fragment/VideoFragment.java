@@ -28,7 +28,7 @@ import java.util.TreeMap;
 
 import butterknife.Bind;
 
-public class VideoFragment extends BaseFragment implements IVideoView, SwipeRefreshLayout.OnRefreshListener {
+public class VideoFragment extends BaseFragment implements IVideoView,SwipeRefreshLayout.OnRefreshListener {
 
     @Bind(R.id.recycler_view)
     public RecyclerView mRecyclerView;
@@ -144,6 +144,7 @@ public class VideoFragment extends BaseFragment implements IVideoView, SwipeRefr
                 onRefresh();
             }
         }).build();
+        //上拉加载功能监听
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mLinearLayoutManager = new LinearLayoutManager(mRecyclerView.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -294,6 +295,7 @@ public class VideoFragment extends BaseFragment implements IVideoView, SwipeRefr
     private int pageNo = 0;
     private final int pageSize = 10;
 
+    //刷新
     @Override
     public void onRefresh() {
         switch (mType) {

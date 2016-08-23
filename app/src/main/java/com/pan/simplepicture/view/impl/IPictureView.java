@@ -9,12 +9,13 @@ import java.util.List;
  */
 public interface IPictureView extends IBaseView {
 
+    //设置适配器
     void setAdapter(List<Juzimi> list);
-
+    //加载更多图片
     void loadMore(List<Juzimi> list);
-
+    //刷新完成
     void onRefreshComplete();
-
+    //加载完成
     void onLoadMoreComplete();
 
     void showSuccess();

@@ -150,9 +150,9 @@ public class PlayActivity extends BaseActivity implements OnPreparedListener,
     @Bind(R.id.VideoAction)
     RelativeLayout VideoAction;
     @Bind(R.id.detailPic)
-    SimpleDraweeView detailPic;
+    SimpleDraweeView detailPic;//图片加载
     @Bind(R.id.pre_play_button)
-    ImageButton pre_play_button;
+    ImageButton pre_play_button;//准备播放按钮
     @Bind(R.id.shimmer_tv)
     ShimmerTextView shimmer_tv;
 
@@ -223,6 +223,10 @@ public class PlayActivity extends BaseActivity implements OnPreparedListener,
         mTabLayout.setTabsFromPagerAdapter(adapter);
     }
 
+    /**
+     * 设置描述ViewPager
+     * @param data
+     */
     private void setupDesViewPager(AbsVideoRes data) {
         String[] titles = getResources().getStringArray(R.array.play_tab);
         titles[0] = "简介";
@@ -279,6 +283,9 @@ public class PlayActivity extends BaseActivity implements OnPreparedListener,
         initPlay();
         if (mPresenter == null && !(mPresenter instanceof PlayPresenter))
             return;
+        /**
+         * 替换加载图片为网络用图
+         */
         FrecsoUtils.loadImage(mVideoRes.getVideoThumbnail(), detailPic);
         if (0 == mVideoRes.getType()) {
             setupDesViewPager(mVideoRes);
@@ -479,6 +486,9 @@ public class PlayActivity extends BaseActivity implements OnPreparedListener,
                     /**
                      * 设置播放url
                      */
+
+//                    String url = "http://139.129.109.113:8088/admin/ATTACHMENT/VIDEO/8aad611b5691ab0b015692a802b00026.mp4";
+//                    mVV.setVideoPath(url);
                     mVV.setVideoPath(mVideoSource);
 
                     /**
