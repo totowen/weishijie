@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.pan.simplepicture.ConstantValue;
@@ -28,7 +29,7 @@ import java.util.TreeMap;
 
 import butterknife.Bind;
 
-public class VideoFragment extends BaseFragment implements IVideoView,SwipeRefreshLayout.OnRefreshListener {
+public class VideoFragment extends BaseFragment implements IVideoView, SwipeRefreshLayout.OnRefreshListener {
 
     @Bind(R.id.recycler_view)
     public RecyclerView mRecyclerView;
@@ -82,6 +83,7 @@ public class VideoFragment extends BaseFragment implements IVideoView,SwipeRefre
 
     private int mType = 0;
 
+    //在fragmentAdapter中设置标题索引
     public void setType(int mType) {
         this.mType = mType;
     }
@@ -181,16 +183,26 @@ public class VideoFragment extends BaseFragment implements IVideoView,SwipeRefre
                 params.put("pageNo", String.valueOf(pageNo));
                 params.put("pageSize", String.valueOf(pageSize));
                 params.put("imieId", MD5Utils.MD5(ConstantValue.str + ConstantValue.str));
+                Log.e("最美创意", "deviceModel: " + Build.MODEL.replace(" ", "+") + " plamformVersion: " + Build.VERSION.RELEASE
+                        + " deviceName: " + Build.MANUFACTURER + " pageNo: " + String.valueOf(pageNo) + " pageSize: " + String.valueOf(pageSize)
+                        + " imieId: " + MD5Utils.MD5(ConstantValue.str + ConstantValue.str));
                 ((VideoPresenter) mPresenter).getBeautifulVideos(params);
                 break;
             //游戏CG
             case 2:
-                params.put("res_Type", "0");
-                params.put("type", "&2&");
-                params.put("orderBy", "createdAt");
+//                params.put("res_Type", "0");
+//                params.put("type", "&2&");
+//                params.put("orderBy", "createdAt");
+//                params.put("pageSize", String.valueOf(pageSize));
+//                params.put("skip", String.valueOf(pageNo));
+//                ((VideoPresenter) mPresenter).getYouKuVideos(params);
+                params.put("type", "4");
+                params.put("level", "1");
+                params.put("pageNo", String.valueOf(pageNo));
                 params.put("pageSize", String.valueOf(pageSize));
-                params.put("skip", String.valueOf(pageNo));
-                ((VideoPresenter) mPresenter).getYouKuVideos(params);
+                Log.e("博联", "type: " + "4" + " level: " + "1"
+                        + " pageNo: " +  String.valueOf(pageNo) + " pageSize: " + String.valueOf(pageSize));
+                ((VideoPresenter) mPresenter).getMediaVideos(params);
                 break;
             //电影预告花絮
             case 3:
@@ -313,11 +325,17 @@ public class VideoFragment extends BaseFragment implements IVideoView,SwipeRefre
             case 1:
                 pageNo = 0;
                 params.put("pageNo", String.valueOf(pageNo));
+                Log.e("最美创意", "deviceModel: " + Build.MODEL.replace(" ", "+") + " plamformVersion: " + Build.VERSION.RELEASE
+                        + " deviceName: " + Build.MANUFACTURER + " pageNo: " + String.valueOf(pageNo) + " pageSize: " + String.valueOf(pageSize)
+                        + " imieId: " + MD5Utils.MD5(ConstantValue.str + ConstantValue.str));
                 ((VideoPresenter) mPresenter).getBeautifulVideos(params);
                 break;
             //游戏CG
             case 2:
                 //电影预告花絮
+                pageNo = 0;
+                params.put("pageNo", String.valueOf(pageNo));
+                ((VideoPresenter) mPresenter).getMediaVideos(params);
             case 3:
                 //mv
             case 8:
@@ -401,11 +419,16 @@ public class VideoFragment extends BaseFragment implements IVideoView,SwipeRefre
                 break;
             case 1:
                 params.put("pageNo", String.valueOf(pageNo));
+                Log.e("最美创意", "deviceModel: " + Build.MODEL.replace(" ", "+") + " plamformVersion: " + Build.VERSION.RELEASE
+                        + " deviceName: " + Build.MANUFACTURER + " pageNo: " + String.valueOf(pageNo) + " pageSize: " + String.valueOf(pageSize)
+                        + " imieId: " + MD5Utils.MD5(ConstantValue.str + ConstantValue.str));
                 ((VideoPresenter) mPresenter).getBeautifulVideos(params);
                 break;
             //游戏
             case 2:
                 //电影预告花絮
+                params.put("pageNo", String.valueOf(pageNo));
+                ((VideoPresenter) mPresenter).getMediaVideos(params);
             case 3:
             case 9:
             case 8:

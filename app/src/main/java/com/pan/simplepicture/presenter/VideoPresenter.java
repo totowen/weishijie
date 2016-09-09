@@ -1,13 +1,17 @@
 package com.pan.simplepicture.presenter;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.FindCallback;
+import com.pan.simplepicture.ConstantValue;
 import com.pan.simplepicture.bean.BaoZou;
 import com.pan.simplepicture.bean.Beaty;
 import com.pan.simplepicture.bean.Column;
+import com.pan.simplepicture.bean.MediaSourcesDto;
+import com.pan.simplepicture.bean.MedioSourceDto;
 import com.pan.simplepicture.bean.Resources;
 import com.pan.simplepicture.bean.Videos;
 import com.pan.simplepicture.model.VideoModel;
@@ -32,11 +36,76 @@ public class VideoPresenter extends BasePresenter<IVideoView> {
         mIVideoModel = new VideoModel();
     }
 
-    public void getATVideos(final Map<String, String> params) {
+    public void getMediaVideos(final Map<String, String> params) {
+        Log.e("博联", " "+mView.checkNet());
         if (!mView.checkNet()) {
             mView.onRefreshComplete();
             mView.onLoadMoreComplete();
             mView.showNoNet();
+            return;
+        }
+        mIVideoModel.loadMediaVideos(params, new Callback<MedioSourceDto>() {
+            @Override
+            public void onResponse(Response<MedioSourceDto> response, Retrofit retrofit) {
+                Log.e("博联", " "+mView);
+                if (mView == null)
+                    return;
+                mView.onRefreshComplete();
+                mView.onLoadMoreComplete();
+                Log.e("博联", " "+response+" "+response.body()+" "+response.body().mediaSourcesDto);
+                if (response == null || response.body() == null || response.body().mediaSourcesDto == null) {
+                    if ("0".equals(params.get("pageNo"))) {
+                        mView.showFaild();
+                    }
+                    return;
+                }
+                if ("0".equals(params.get("pageNo"))) {
+                    if (0 == response.body().mediaSourcesDto.size()) {
+                        mView.showEmpty();
+                    } else {
+                        Log.e("博联", response.body().mediaSourcesDto.toString());
+
+                        String blepUrl = ConstantValue.BLEP_URL;
+                        List<MediaSourcesDto> mediaSourcesDto = response.body().mediaSourcesDto;
+
+                        ArrayList<MediaSourcesDto> mediaSourcesDtos = new ArrayList<>();
+
+                        for (MediaSourcesDto mediaSource:
+                        mediaSourcesDto) {
+                            mediaSource.setAttachmentId(blepUrl+mediaSource.getAttachmentId());
+                            mediaSource.setAttachmentMediaId(blepUrl+mediaSource.getAttachmentMediaId());
+                            mediaSourcesDtos.add(mediaSource);
+                        }
+
+                        Log.e("博联", mediaSourcesDtos.toString());
+                        mView.setAdapter(mediaSourcesDtos);
+                        mView.showSuccess();
+                    }
+                } else {
+                    mView.loadMore(response.body().mediaSourcesDto);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e("博联", " "+t);
+                if (mView == null)
+                    return;
+                mView.onRefreshComplete();
+                mView.onLoadMoreComplete();
+                if ("0".equals(params.get("pageNo"))) {
+                    mView.showFaild();
+                }
+            }
+        });
+    }
+
+    public void getATVideos(final Map<String, String> params) {
+        //mView为VideoFragment对象
+        if (!mView.checkNet()) { //是否连接网络
+            mView.onRefreshComplete();//刷新界面
+            mView.onLoadMoreComplete();//加载界面
+            mView.showNoNet();//显示为无网络
             return;
         }
         mIVideoModel.loadATVideos(params, new Callback<Videos>() {
@@ -102,6 +171,7 @@ public class VideoPresenter extends BasePresenter<IVideoView> {
                     if (0 == response.body().resources.size()) {
                         mView.showEmpty();
                     } else {
+                        Log.e("Beaty", response.body().resources.toString());
                         mView.setAdapter(response.body().resources);
                         mView.showSuccess();
                     }

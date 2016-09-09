@@ -12,7 +12,7 @@ import com.pan.simplepicture.utils.StringUtils;
 
 /**
  * Auto-generated: 2016-01-02 1:48:3
- *
+ * 视频资源实体
  * @author aTool.org (i@aTool.org)
  * @website http://www.atool.org/json2javabean.php
  */
@@ -20,7 +20,7 @@ public class Series extends AbsVideoRes implements Parcelable {
     public int type = 2;
     public int id;
     public boolean recommend;
-    public String description;
+    public String description; //描述
     public int subtitles_count;
     public String created_at;
     public String updated_at;

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 滑动监听
  * Created by florentchampigny on 05/08/15.
  */
 public class ParallaxViewController extends RecyclerView.OnScrollListener {

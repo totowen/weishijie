@@ -15,6 +15,8 @@ public abstract class ConstantValue {
             + Build.TYPE.length() % 10 + Build.USER.length() % 10;
     public static String AT_URL = "http://i.animetaste.net/api/";
 
+    public static String BLEP_URL = "http://139.129.109.113:8088/admin/";
+
     public static String BAZOU_GET_REAL_URL = "http://vpbaby.5233game.com/";
     public static String BAOZOU_URL = "http://api.baomihua.tv/";
 

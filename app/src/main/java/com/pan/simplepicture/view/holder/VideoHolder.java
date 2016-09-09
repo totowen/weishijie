@@ -15,6 +15,7 @@ import com.pan.simplepicture.view.activity.PlayActivity;
 import butterknife.Bind;
 
 /**
+ * Video的item布局实现（res_item.xml）
  * Created by sysadminl on 2015/12/11.
  */
 public class VideoHolder extends BaseHolder<AbsVideoRes> {
@@ -33,10 +34,10 @@ public class VideoHolder extends BaseHolder<AbsVideoRes> {
     @Override
     public void init() {
         super.init();
-        Object mObject = mView.getTag(R.id.tag_first);
-        mInt = mView.getTag(R.id.tag_second);
+        Object mObject = mView.getTag(R.id.tag_first); //获取第一个视图标记的对象  在VideoFragment中的setAdapter（）方法中被标记
+        mInt = mView.getTag(R.id.tag_second);//获取第二个视图标记的对象  在VideoFragment中的setAdapter（）方法中被标记
         if (mObject != null && mObject instanceof ParallaxViewController) {
-            ((ParallaxViewController) mObject).imageParallax(iv_pic);
+            ((ParallaxViewController) mObject).imageParallax(iv_pic);//添加加载控件
         }
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,10 +62,10 @@ public class VideoHolder extends BaseHolder<AbsVideoRes> {
     }
 
     @Override
-    public void setData(AbsVideoRes mData) {
+    public void setData(AbsVideoRes mData) {  //在BaseRecyclerAdapter<T> 中调用并被赋值
         super.setData(mData);
-        tv_duration.setText(mData.getVideoDuration());
-        tv_title.setText(mData.getVideoTitle());
-        FrecsoUtils.loadImage(mData.getVideoThumbnail(), iv_pic);
+        tv_duration.setText(mData.getVideoDuration());//持续时间
+        tv_title.setText(mData.getVideoTitle()); //标题
+        FrecsoUtils.loadImage(mData.getVideoThumbnail(), iv_pic);//加载图片链接
     }
 }

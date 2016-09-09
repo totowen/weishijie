@@ -18,20 +18,20 @@ import com.pan.simplepicture.utils.StringUtils;
  */
 public class Resources extends AbsVideoRes implements Parcelable {
     public int type = 1;
-    public String rsId;
+    public String rsId;//资源id
     public Modules modules;
-    public String title;
-    public String link;
-    public String thumbnail;
-    public String thumbnailV2;
-    public String duration;
-    public String published;
-    public String uptime;
-    public String description;
+    public String title;//标题
+    public String link;//视频地址
+    public String thumbnail;//
+    public String thumbnailV2;//和thumbnail一样
+    public String duration;//播放时长
+    public String published;//上传时间
+    public String uptime;//更新时间
+    public String description;//描述
     public String player;
     public String streamtypes;
     public String flag;
-    public int viewCount;
+    public int viewCount;//播放次数
     public int favoriteCount;
     public int upcount;
     public int downcount;
@@ -151,5 +151,34 @@ public class Resources extends AbsVideoRes implements Parcelable {
         parcel.writeInt(allRecommend);
         parcel.writeInt(albumHot);
         parcel.writeInt(enable);
+    }
+
+    @Override
+    public String toString() {
+        return "Resources{" +
+                "type=" + type +
+                ", rsId='" + rsId + '\'' +
+                ", modules=" + modules +
+                ", title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", thumbnailV2='" + thumbnailV2 + '\'' +
+                ", duration='" + duration + '\'' +
+                ", published='" + published + '\'' +
+                ", uptime='" + uptime + '\'' +
+                ", description='" + description + '\'' +
+                ", player='" + player + '\'' +
+                ", streamtypes='" + streamtypes + '\'' +
+                ", flag='" + flag + '\'' +
+                ", viewCount=" + viewCount +
+                ", favoriteCount=" + favoriteCount +
+                ", upcount=" + upcount +
+                ", downcount=" + downcount +
+                ", commentcount=" + commentcount +
+                ", tag='" + tag + '\'' +
+                ", allRecommend=" + allRecommend +
+                ", albumHot=" + albumHot +
+                ", enable=" + enable +
+                '}';
     }
 }

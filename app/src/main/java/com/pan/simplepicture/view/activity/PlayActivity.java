@@ -154,7 +154,7 @@ public class PlayActivity extends BaseActivity implements OnPreparedListener,
     @Bind(R.id.pre_play_button)
     ImageButton pre_play_button;//准备播放按钮
     @Bind(R.id.shimmer_tv)
-    ShimmerTextView shimmer_tv;
+    ShimmerTextView shimmer_tv;//发光字体
 
     @Bind(R.id.layout_info)
     RelativeLayout layout_info;
@@ -287,6 +287,7 @@ public class PlayActivity extends BaseActivity implements OnPreparedListener,
          * 替换加载图片为网络用图
          */
         FrecsoUtils.loadImage(mVideoRes.getVideoThumbnail(), detailPic);
+
         if (0 == mVideoRes.getType()) {
             setupDesViewPager(mVideoRes);
             setVideoSource(mVideoRes.getUrl());

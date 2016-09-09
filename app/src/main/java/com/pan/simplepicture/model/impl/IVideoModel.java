@@ -5,6 +5,7 @@ import com.avos.avoscloud.FindCallback;
 import com.pan.simplepicture.bean.BaoZou;
 import com.pan.simplepicture.bean.Beaty;
 import com.pan.simplepicture.bean.Column;
+import com.pan.simplepicture.bean.MedioSourceDto;
 import com.pan.simplepicture.bean.Videos;
 
 import java.util.Map;
@@ -15,6 +16,8 @@ import retrofit.Callback;
  * Created by sysadminl on 2015/12/9.
  */
 public interface IVideoModel extends BaseModel {
+
+    void loadMediaVideos(Map<String,String> params,Callback<MedioSourceDto> callback);
 
     void loadATVideos(Map<String, String> params, Callback<Videos> callback);
 

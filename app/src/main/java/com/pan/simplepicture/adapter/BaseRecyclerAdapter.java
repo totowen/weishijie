@@ -11,6 +11,10 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * RecyclerView适配器
+ * @param <T>
+ */
 public class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseHolder<T>> {
 
     private List<T> mDatas;
@@ -68,6 +72,12 @@ public class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseHolder<T>> 
         return this;
     }
 
+    /**
+     * 在任何ViewHolder被实例化的时候，OnCreateViewHolder将会被触发
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public BaseHolder<T> onCreateViewHolder(ViewGroup parent, int viewType) {
         View view =
@@ -88,7 +98,11 @@ public class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseHolder<T>> 
         return null;
     }
 
-
+    /**
+     * 可见，OnCreateViewHolder创建了一个ViewHolder的实例，之后，onBindViewHolder方法则负责将数据与ViewHolder绑定
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final BaseHolder<T> holder, int position) {
         holder.setData(mDatas.get(position));

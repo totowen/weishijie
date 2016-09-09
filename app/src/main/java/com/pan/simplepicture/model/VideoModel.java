@@ -7,6 +7,7 @@ import com.pan.simplepicture.ConstantValue;
 import com.pan.simplepicture.bean.BaoZou;
 import com.pan.simplepicture.bean.Beaty;
 import com.pan.simplepicture.bean.Column;
+import com.pan.simplepicture.bean.MedioSourceDto;
 import com.pan.simplepicture.bean.Videos;
 import com.pan.simplepicture.inter.ApiService;
 import com.pan.simplepicture.model.impl.IVideoModel;
@@ -22,6 +23,16 @@ import retrofit.Retrofit;
  * Created by sysadminl on 2015/12/9.
  */
 public class VideoModel implements IVideoModel {
+    @Override
+    public void loadMediaVideos(Map<String, String> params, Callback<MedioSourceDto> callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(ConstantValue.BLEP_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService service = retrofit.create(ApiService.class);
+        Call<MedioSourceDto> call = service.repoMediaVideos(params.get("type"), params.get("level"), params.get("pageNo"), params.get("pageSize"));
+        call.enqueue(callback);
+    }
+
     @Override
     public void loadATVideos(Map<String, String> params, Callback<Videos> callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(ConstantValue.AT_URL)

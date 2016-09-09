@@ -4,6 +4,7 @@ import com.pan.simplepicture.bean.BaoZou;
 import com.pan.simplepicture.bean.Beaty;
 import com.pan.simplepicture.bean.Column;
 import com.pan.simplepicture.bean.Episodes;
+import com.pan.simplepicture.bean.MedioSourceDto;
 import com.pan.simplepicture.bean.PlayAddress;
 import com.pan.simplepicture.bean.PlayUrl;
 import com.pan.simplepicture.bean.Videos;
@@ -17,6 +18,18 @@ import retrofit.http.Query;
  * Created by sysadminl on 2015/12/18.
  */
 public interface ApiService {
+
+
+    @GET("api/blep/getMedias/{type}/{level}/{pageNo}/{pageSize}")
+    Call<MedioSourceDto> repoMediaVideos(
+        @Path("type") String type,
+        @Path("level") String level,
+        @Path("pageNo") String pageNo,
+        @Path("pageSize") String pageSize
+    );
+
+
+
     /**
      * 加载AT资源
      *
